@@ -9,17 +9,32 @@
 #define FAHRZEUG_H_
 #include <iostream>
 #include <string>
+#include <iomanip>
+
+extern double dGlobaleZeit;
 
 class Fahrzeug {
 public:
 	Fahrzeug();
 	Fahrzeug(std::string p_sName);
+	Fahrzeug(std::string p_sName, double p_dMaxGeschwindigkeit);
+	static void vKopf();
+	virtual void vAusgeben() const;
+	virtual void vSimulieren();
+	virtual void dTanken(double dMenge) = 0;
+	virtual double dGeschwindigkeit() const = 0;
 	virtual ~Fahrzeug();
 
 private:
 	 static int p_iMaxID;
-	 std::string p_sName;
 	 const int ID;
+
+protected:
+	 std::string p_sName;
+	 double p_dGesamtStrecke = 0.0;
+	 double p_dGesamtZeit = 0.0;
+	 double p_dMaxGeschwindigkeit;
+	 double p_dZeit = 0.0;
 };
 
 #endif /* FAHRZEUG_H_ */
