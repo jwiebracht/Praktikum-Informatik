@@ -93,11 +93,11 @@ void vAufgabe_1a()
 				dGlobaleZeit += zeit;
 				std::cout << std::endl;
 				PKW::vKopf();
-				std::cout << std::endl << "--------------------------------------------------------------------------------------------------" << std::endl;
+				std::cout << std::endl << "---------------------------------------------------------------------------------------------------------" << std::endl;
 				for(auto& fahrzeug : fahrzeuge)
 				{
 					fahrzeug->vSimulieren();
-					fahrzeug->vAusgeben();
+					std::cout << *fahrzeug << std::endl;
 					std::cout << std::endl;
 				}
 			}
