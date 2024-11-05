@@ -35,7 +35,7 @@ void Fahrzeug::vKopf()
     			<< std::setw(20) << "Akt. Geschw.";
 }
 
-void Fahrzeug::vAusgeben() const
+void Fahrzeug::vAusgeben(std::ostream& out) const
 {
     std::cout << std::left;
     std::cout << std::setw(6) << ID
@@ -59,6 +59,12 @@ void Fahrzeug::vSimulieren()
 
 	p_dZeit = dGlobaleZeit;
 	p_dGesamtZeit = p_dZeit;
+}
+
+std::ostream& operator<<(std::ostream& out, const Fahrzeug& fahrzeug)
+{
+	fahrzeug.vAusgeben(out);
+	return out;
 }
 
 Fahrzeug::~Fahrzeug() {

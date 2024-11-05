@@ -76,10 +76,10 @@ void PKW::vKopf()
 	std::cout << std::setw(20) << "Gesamtverbrauch" << std::setw(15) << "Tankinhalt";
 }
 
-void PKW::vAusgeben() const
+void PKW::vAusgeben(std::ostream& out) const
 {
 	double insgesamterVerbrauch = (p_dGesamtStrecke/100) * p_dVerbrauch;
-	Fahrzeug::vAusgeben();
+	Fahrzeug::vAusgeben(out);
 	std::cout << std::left;
 	std::cout << std::setw(20) << std::fixed << std::setprecision(2) << insgesamterVerbrauch
             << std::setw(20) << std::fixed << std::setprecision(2) << p_dTankinhalt;
@@ -94,3 +94,4 @@ PKW::~PKW() {
 	// TODO Auto-generated destructor stub
 }
 
+;

@@ -19,7 +19,7 @@ public:
 	Fahrzeug(std::string p_sName);
 	Fahrzeug(std::string p_sName, double p_dMaxGeschwindigkeit);
 	static void vKopf();
-	virtual void vAusgeben() const;
+	virtual void vAusgeben(std::ostream& out) const;
 	virtual void vSimulieren();
 	virtual void dTanken(double dMenge) = 0;
 	virtual double dGeschwindigkeit() const = 0;
@@ -36,5 +36,6 @@ protected:
 	 double p_dMaxGeschwindigkeit;
 	 double p_dZeit = 0.0;
 };
+std::ostream& operator<<(std::ostream& out, const Fahrzeug& fahrzeug);
 
 #endif /* FAHRZEUG_H_ */

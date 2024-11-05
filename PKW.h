@@ -9,6 +9,7 @@
 #define PKW_H_
 
 #include "Fahrzeug.h"
+#include <iostream>
 
 class PKW : public Fahrzeug{
 public:
@@ -18,7 +19,7 @@ public:
 	void dTanken(double dMenge) override;
 	void vSimulieren() override;
 	static void vKopf();
-	void vAusgeben() const override;
+	void vAusgeben(std::ostream& out) const override;
 	double dGeschwindigkeit() const override;
 	virtual ~PKW();
 
