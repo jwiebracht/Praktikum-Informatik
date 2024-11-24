@@ -9,8 +9,16 @@
 #include "Fahrrad.h"
 #include <memory>
 #include <vector>
+#include <iomanip>
+#include <algorithm>
+#include <cstdlib>
+#include "math.h"
+using namespace std;
 
 void vAufgabe_1a();
+void v_Aufgabe_2();
+void vAufgabe_3();
+void vAufgabe_AB1();
 
 int main()
 {
@@ -39,7 +47,15 @@ int main()
 	Auto4->vAusgeben();
 	std::cout << std::endl;
 	*/
-	vAufgabe_1a();
+
+
+
+
+
+	//vAufgabe_1a();
+	//v_Aufgabe_2();
+	vAufgabe_3();
+	//vAufgabe_AB1();
 	return 0;
 
 }
@@ -128,3 +144,127 @@ void vAufgabe_1a()
 	}
 	}
 }
+
+void v_Aufgabe_2() {
+    int nPKW, nFahrrad;
+    std::cout << "Bitte geben Sie die Anzahl der zu erzeugenden PKWs ein: ";
+    std::cin >> nPKW;
+    std::cout << "Bitte geben Sie die Anzahl der zu erzeugenden Fahrräder ein: ";
+    std::cin >> nFahrrad;
+
+    // Vector zur Verwaltung der Fahrzeuge
+    std::vector<std::unique_ptr<Fahrzeug>> vecFahrzeuge;
+
+    // PKW-Objekte erstellen und zum Vector hinzufügen
+    for (int i = 0; i < nPKW; ++i) {
+        std::string name;
+        double maxGeschwindigkeit;
+        std::cout << "Geben Sie den Namen des PKW " << (i + 1) << " ein: ";
+        std::cin >> name;
+        std::cout << "Geben Sie die maximale Geschwindigkeit des PKW " << (i + 1) << " ein: ";
+        std::cin >> maxGeschwindigkeit;
+        double verbrauch;
+        std::cout << "Geben Sie den Verbrauch des PKW " << (i + 1) << " ein: ";
+        std::cin >> verbrauch;
+        vecFahrzeuge.push_back(std::make_unique<PKW>(name, maxGeschwindigkeit, verbrauch));
+    }
+
+    // Fahrrad-Objekte erstellen und zum Vector hinzufügen
+    for (int i = 0; i < nFahrrad; ++i) {
+        std::string name;
+        double maxGeschwindigkeit;
+        std::cout << "Geben Sie den Namen des Fahrrads " << (i + 1) << " ein: ";
+        std::cin >> name;
+        std::cout << "Geben Sie die maximale Geschwindigkeit des Fahrrads " << (i + 1) << " ein: ";
+        std::cin >> maxGeschwindigkeit;
+        vecFahrzeuge.push_back(std::make_unique<Fahrrad>(name, maxGeschwindigkeit));
+    }
+
+    // Simulationsschritte durchführen
+    double dGlobaleZeit = 0.0;
+    double dZeittakt = 0.5; // Zeittakt in Stunden
+    double dSimulationsdauer = 3.0; // Gesamt-Simulationsdauer in Stunden
+
+    while (dGlobaleZeit < dSimulationsdauer) {
+        dGlobaleZeit += dZeittakt;
+        std::cout << "\nSimulation zur Zeit: " << dGlobaleZeit << " Stunden\n";
+        for (auto& fahrzeug : vecFahrzeuge) {
+            fahrzeug->vSimulieren();
+            std::cout << *fahrzeug << "\n"; // Ausgabe mit überladenem Operator <<
+        }
+
+        // Nach genau 3 Stunden die PKWs volltanken
+        if (dGlobaleZeit >= 3.0) {
+            for (auto& fahrzeug : vecFahrzeuge) {
+                if (auto pkw = dynamic_cast<PKW*>(fahrzeug.get())) {
+                    pkw->dTanken(0.0); // Volltanken
+                }
+            }
+        }
+    }
+}
+
+void vAufgabe_3() {
+    // Fahrzeuge simulieren
+        double dZeittakt = 0.5; // Zeittakt in Stunden
+    double dSimulationsdauer = 3.0; // Gesamt-Simulationsdauer in Stunden
+
+    PKW pkw1("Audi", 150, 8.0);
+    PKW pkw2("BMW", 180, 9.0);
+
+    while (dGlobaleZeit < dSimulationsdauer) {
+        dGlobaleZeit += dZeittakt;
+        pkw1.vSimulieren();
+        pkw2.vSimulieren();
+    }
+
+    // Vergleich der Fahrzeuge basierend auf der Gesamtstrecke
+    if (pkw1 < pkw2) {
+        std::cout << pkw1.getName() << " hat eine geringere Gesamtstrecke als " << pkw2.getName() << "." << std::endl;
+    } else if (pkw2 < pkw1) {
+        std::cout << pkw2.getName() << " hat eine geringere Gesamtstrecke als " << pkw1.getName() << "." << std::endl;
+    } else {
+        std::cout << pkw1.getName() << " und " << pkw2.getName() << " haben die gleiche Gesamtstrecke." << std::endl;
+    }
+}
+
+
+
+
+
+/*
+double dEpsilon = 0.001;
+void vAufgabe_AB1() {
+
+    int l = 0; // Laufindex für gezielte AUsgabe
+    vector<int> ausgabe{15};
+    double dTakt = 0.3;
+
+    std::vector<unique_ptr<Fahrzeug>> vecFahrzeuge;
+    vecFahrzeuge.push_back(make_unique <PKW>("Audi", 217, 10.7));
+    vecFahrzeuge.push_back(make_unique <Fahrrad>("BMX", 21.4));
+    for (dGlobaleZeit = 0; dGlobaleZeit < 6; dGlobaleZeit += dTakt)
+    {
+        auto itL = find(ausgabe.begin(), ausgabe.end(), l);
+        if (itL != ausgabe.end()) {
+            std::cout << std::endl << l <<  " Globalezeit = " << dGlobaleZeit << std::endl;
+            Fahrzeug::vKopf();
+        }
+
+        for (int i = 0; i < (int) vecFahrzeuge.size(); i++)
+        {
+            vecFahrzeuge[i]->vSimulieren();
+            if (fabs(dGlobaleZeit - 3.0) < dTakt/2)
+            {
+                vecFahrzeuge[i]->dTanken();
+            }
+            if (itL != ausgabe.end()) {
+                std::cout << *vecFahrzeuge[i] << endl;
+            }
+        }
+        l++;
+    }
+    char c;
+    std::cin >> c;
+}
+*/

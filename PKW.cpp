@@ -7,7 +7,7 @@
 
 #include "PKW.h"
 
-PKW::PKW() {
+PKW::PKW(){
 	// TODO Auto-generated constructor stub
 }
 
@@ -31,22 +31,27 @@ PKW::PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch,
 	          << "Tankinhalt: " << p_dTankinhalt << " l\n";
 }
 
-void PKW::dTanken(double dMenge = 0.0)
+double PKW::dTanken(double dMenge)
 {
 	if(dMenge == 0.0)
 	{
 		dMenge = p_dTankvolumen - p_dTankinhalt;
+		return dMenge;
 	}
 	if(dMenge > p_dTankvolumen - p_dTankinhalt)
 	{
+		double neu = p_dTankvolumen - p_dTankinhalt;
 		p_dTankinhalt = p_dTankvolumen;
 		std::cout << "Es wurden: " << p_dTankvolumen - p_dTankinhalt << " Liter getankt" << std::endl;
+		return neu;
 	}
 	else if(p_dTankvolumen > 0 && dMenge < p_dTankvolumen - p_dTankinhalt)
 	{
 		p_dTankinhalt += dMenge;
 		std::cout << "Es wurden: " << dMenge << " Liter getankt" << std::endl;
+		return dMenge;
 	}
+	return 0.0f;
 }
 
 void PKW::vSimulieren()
@@ -88,6 +93,13 @@ void PKW::vAusgeben(std::ostream& out) const
 double PKW::dGeschwindigkeit() const
 {
 	return p_dMaxGeschwindigkeit;
+}
+
+std::unique_ptr<Fahrzeug> PKW::fahrzeugErstellen()
+{
+	std::string name =  Fahrzeug::generateRandomName();
+	std::unique_ptr<PKW> pkw = std::make_unique<PKW>(name, 100, 5);
+	return pkw;
 }
 
 PKW::~PKW() {

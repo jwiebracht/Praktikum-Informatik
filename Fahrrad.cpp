@@ -22,9 +22,17 @@ double Fahrrad::dGeschwindigkeit() const{
     return std::max(aktuelleGeschwindigkeit, 12.0);  // Minimal 12 km/h
 }
 
-void Fahrrad::dTanken(double dMenge)
+double Fahrrad::dTanken(double dMenge)
 {
+	return 0;
 	//Ein Fahrrad kann nicht tanken
+}
+
+std::unique_ptr<Fahrzeug> Fahrrad::fahrzeugErstellen()
+{
+	std::string name =  Fahrzeug::generateRandomName();
+	std::unique_ptr<Fahrrad> bike = std::make_unique<Fahrrad>(name, 30);
+	return bike;
 }
 
 Fahrrad::~Fahrrad() {

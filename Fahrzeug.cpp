@@ -61,10 +61,44 @@ void Fahrzeug::vSimulieren()
 	p_dGesamtZeit = p_dZeit;
 }
 
+std::string Fahrzeug::generateRandomName()
+{
+	std::string names[] = {"Dieter", "Peter", "Johann", "Ken", "Barbie"};
+	int nummer = rand() % 5;
+	return names[nummer];
+}
+
+double Fahrzeug::getGesamtStrecke() const
+{
+	return p_dGesamtStrecke;
+}
+
 std::ostream& operator<<(std::ostream& out, const Fahrzeug& fahrzeug)
 {
 	fahrzeug.vAusgeben(out);
 	return out;
+}
+
+bool operator<(const Fahrzeug& lhs, const Fahrzeug& rhs)
+{
+    return lhs.getGesamtStrecke() < rhs.getGesamtStrecke();
+}
+
+// Benutzerdefinierter Zuweisungsoperator für die Fahrzeug-Klasse
+Fahrzeug& Fahrzeug::operator=(const Fahrzeug& rhs) {
+    if (this == &rhs) {
+        return *this; // Selbstzuweisungsschutz
+    }
+    // Nur Stammdaten kopieren (Daten, die bei der Erstellung festgelegt werden)
+    p_sName = rhs.p_sName;
+    p_dMaxGeschwindigkeit = rhs.p_dMaxGeschwindigkeit;
+    // ID bleibt unverändert, da sie eindeutig für jedes Fahrzeug sein sollte
+    return *this;
+}
+
+std::string Fahrzeug::getName() const
+{
+	return p_sName;
 }
 
 Fahrzeug::~Fahrzeug() {

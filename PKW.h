@@ -16,11 +16,12 @@ public:
 	PKW();
 	PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch);//Konstruktor ohne optionalen Tankinhalt
 	PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch, double p_dTankvolumen);
-	void dTanken(double dMenge) override;
+	double dTanken(double dMenge) override;
 	void vSimulieren() override;
 	static void vKopf();
 	void vAusgeben(std::ostream& out) const override;
 	double dGeschwindigkeit() const override;
+	std::unique_ptr<Fahrzeug> fahrzeugErstellen() override;
 	virtual ~PKW();
 
 private:

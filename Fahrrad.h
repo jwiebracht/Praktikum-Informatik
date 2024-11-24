@@ -15,7 +15,8 @@ public:
 	Fahrrad();
 	Fahrrad(std::string p_sName, double p_dMaxGeschwindigkeit);
 	double dGeschwindigkeit() const override;
-	void dTanken(double dMenge) override;
+	double dTanken(double dMenge) override;
+	std::unique_ptr<Fahrzeug> fahrzeugErstellen() override;
 	virtual ~Fahrrad();
 };
 
