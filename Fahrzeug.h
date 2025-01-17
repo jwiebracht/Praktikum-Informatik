@@ -43,7 +43,6 @@ protected:
 	 double p_dMaxGeschwindigkeit;
 };
 
-std::ostream& operator<<(std::ostream& out, const Fahrzeug& fahrzeug);
 bool operator< (const Fahrzeug& lhs, const Fahrzeug& rhs);
 
 #endif /* FAHRZEUG_H_ */

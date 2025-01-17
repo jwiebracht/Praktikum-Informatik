@@ -15,16 +15,28 @@
 #include <limits>
 #include "Fahrzeug.h"
 
+enum class p_eTempolimit{Innerorts = 50,
+	Ausserorts = 100,
+	Autobahn = std::numeric_limits<int>::max()};
+
 class Weg : public Simulationsobjekt{
 public:
-	Weg() = delete;
-	Weg(std::string p_sName);
+	Weg();
+	Weg(std::string p_sName, double p_dLaenge);
+	Weg(std::string p_sName, double p_dLaenge, p_eTempolimit limit);
+
+	void vSimulieren();
+	static void vKopf();
+	void vAusgeben(std::ostream& out) const override;
+
+	double getTempolimit();
+
 	virtual ~Weg();
 
 private:
 	double p_dLaenge;
-	std::unique_ptr<std::list<Fahrzeug>> p_pFahrzeuge;
-	double p_eMaxGeschwindigkeit;
+	std::list<std::unique_ptr<Fahrzeug>> p_pFahrzeuge;
+	p_eTempolimit tempolimit;
 
 };
 

@@ -13,12 +13,14 @@
 #include <algorithm>
 #include <cstdlib>
 #include "math.h"
+#include "Weg.h"
 using namespace std;
 
 void vAufgabe_1a();
 void v_Aufgabe_2();
 void vAufgabe_3();
 void vAufgabe_AB1();
+void vAufgabe_4();
 
 int main()
 {
@@ -54,8 +56,9 @@ int main()
 
 	//vAufgabe_1a();
 	//v_Aufgabe_2();
-	vAufgabe_3();
+	//vAufgabe_3();
 	//vAufgabe_AB1();
+	vAufgabe_4();
 	return 0;
 
 }
@@ -226,6 +229,13 @@ void vAufgabe_3() {
     } else {
         std::cout << pkw1.getName() << " und " << pkw2.getName() << " haben die gleiche Gesamtstrecke." << std::endl;
     }
+}
+
+void vAufgabe_4()
+{
+	std::unique_ptr<Weg> weg = std::make_unique<Weg>("Luxenburger", 5, p_eTempolimit::Autobahn);
+	Weg::vKopf();
+	std::cout << *weg << std::endl;
 }
 
 

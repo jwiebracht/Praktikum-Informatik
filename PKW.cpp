@@ -80,7 +80,7 @@ void PKW::vKopf()
 void PKW::vAusgeben(std::ostream& out) const
 {
 	double insgesamterVerbrauch = (p_dGesamtStrecke/100) * p_dVerbrauch;
-	Simulationsobjekt::vAusgeben(out);
+	Fahrzeug::vAusgeben(out);
 	std::cout << std::left;
 	std::cout << std::setw(20) << std::fixed << std::setprecision(2) << insgesamterVerbrauch
             << std::setw(20) << std::fixed << std::setprecision(2) << p_dTankinhalt;

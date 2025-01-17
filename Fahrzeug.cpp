@@ -57,11 +57,6 @@ double Fahrzeug::getGesamtStrecke() const
 	return p_dGesamtStrecke;
 }
 
-std::ostream& operator<<(std::ostream& out, const Fahrzeug& fahrzeug)
-{
-	fahrzeug.vAusgeben(out);
-	return out;
-}
 
 bool operator<(const Fahrzeug& lhs, const Fahrzeug& rhs)
 {

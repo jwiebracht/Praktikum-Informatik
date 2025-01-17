@@ -45,6 +45,12 @@ bool operator==(const Simulationsobjekt& one, const Simulationsobjekt& two)
 	return one.getID() == two.getID();
 }
 
+std::ostream& operator<<(std::ostream& out, const Simulationsobjekt& objekt)
+{
+	objekt.vAusgeben(out);
+	return out;
+}
+
 Simulationsobjekt::~Simulationsobjekt() {
 	// TODO Auto-generated destructor stub
 }

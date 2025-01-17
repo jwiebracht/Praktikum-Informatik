@@ -38,5 +38,6 @@ protected:
 };
 
 bool operator==(const Simulationsobjekt& one, const Simulationsobjekt& two);
+std::ostream& operator<<(std::ostream& out, const Simulationsobjekt& objekt);
 
 #endif /* SIMULATIONSOBJEKT_H_ */
