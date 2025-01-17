@@ -7,10 +7,6 @@
 
 #include "PKW.h"
 
-PKW::PKW(){
-	// TODO Auto-generated constructor stub
-}
-
 PKW::PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch) : Fahrzeug(p_sName, p_dMaxGeschwindigkeit), p_dVerbrauch(p_dVerbrauch), p_dTankvolumen(55), p_dTankinhalt(p_dTankvolumen/2)
 {
 	std::cout << "PKW erstellt:\n"
@@ -84,7 +80,7 @@ void PKW::vKopf()
 void PKW::vAusgeben(std::ostream& out) const
 {
 	double insgesamterVerbrauch = (p_dGesamtStrecke/100) * p_dVerbrauch;
-	Fahrzeug::vAusgeben(out);
+	Simulationsobjekt::vAusgeben(out);
 	std::cout << std::left;
 	std::cout << std::setw(20) << std::fixed << std::setprecision(2) << insgesamterVerbrauch
             << std::setw(20) << std::fixed << std::setprecision(2) << p_dTankinhalt;

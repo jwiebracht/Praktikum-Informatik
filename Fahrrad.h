@@ -12,10 +12,11 @@
 
 class Fahrrad : public Fahrzeug{
 public:
-	Fahrrad();
+	Fahrrad() = delete;
 	Fahrrad(std::string p_sName, double p_dMaxGeschwindigkeit);
 	double dGeschwindigkeit() const override;
 	double dTanken(double dMenge) override;
+	void vSimulieren();
 	std::unique_ptr<Fahrzeug> fahrzeugErstellen() override;
 	virtual ~Fahrrad();
 };

@@ -7,10 +7,6 @@
 
 #include "Fahrrad.h"
 
-Fahrrad::Fahrrad() {
-	// TODO Auto-generated constructor stub
-}
-
 Fahrrad::Fahrrad(std::string p_sName, double p_dMaxGeschwindigkeit) : Fahrzeug(p_sName, p_dMaxGeschwindigkeit)
 {
 
@@ -26,6 +22,11 @@ double Fahrrad::dTanken(double dMenge)
 {
 	return 0;
 	//Ein Fahrrad kann nicht tanken
+}
+
+void Fahrrad::vSimulieren()
+{
+	Fahrzeug::vSimulieren();
 }
 
 std::unique_ptr<Fahrzeug> Fahrrad::fahrzeugErstellen()

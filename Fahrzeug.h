@@ -14,39 +14,33 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
+#include <list>
+#include "Simulationsobjekt.h"
 
 extern double dGlobaleZeit;
 
-class Fahrzeug {
+class Fahrzeug : public Simulationsobjekt{
 public:
-	Fahrzeug();
+	Fahrzeug() = delete;
 	Fahrzeug(std::string p_sName);
 	Fahrzeug(std::string p_sName, double p_dMaxGeschwindigkeit);
 
 	Fahrzeug(const Fahrzeug&) = delete;
 	Fahrzeug& operator=(const Fahrzeug& rhs);
 
-	static void vKopf();
-	virtual void vAusgeben(std::ostream& out) const;
+	void vAusgeben(std::ostream& out) const override;
 	virtual void vSimulieren();
 	virtual double dTanken(double dMenge = 0.0) = 0;
 	virtual double dGeschwindigkeit() const = 0;
 	static std::string generateRandomName();
 	virtual std::unique_ptr<Fahrzeug> fahrzeugErstellen() = 0;
 	double getGesamtStrecke() const;
-	std::string getName() const;
 	virtual ~Fahrzeug();
 
-private:
-	 static int p_iMaxID;
-	 const int ID;
-
 protected:
-	 std::string p_sName;
 	 double p_dGesamtStrecke = 0.0;
 	 double p_dGesamtZeit = 0.0;
 	 double p_dMaxGeschwindigkeit;
-	 double p_dZeit = 0.0;
 };
 
 std::ostream& operator<<(std::ostream& out, const Fahrzeug& fahrzeug);

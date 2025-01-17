@@ -180,16 +180,16 @@ void v_Aufgabe_2() {
         vecFahrzeuge.push_back(std::make_unique<Fahrrad>(name, maxGeschwindigkeit));
     }
 
-    // Simulationsschritte durchführen
-    double dGlobaleZeit = 0.0;
     double dZeittakt = 0.5; // Zeittakt in Stunden
     double dSimulationsdauer = 3.0; // Gesamt-Simulationsdauer in Stunden
 
     while (dGlobaleZeit < dSimulationsdauer) {
         dGlobaleZeit += dZeittakt;
         std::cout << "\nSimulation zur Zeit: " << dGlobaleZeit << " Stunden\n";
+        PKW::vKopf();
         for (auto& fahrzeug : vecFahrzeuge) {
             fahrzeug->vSimulieren();
+            std::cout << std::endl;
             std::cout << *fahrzeug << "\n"; // Ausgabe mit überladenem Operator <<
         }
 

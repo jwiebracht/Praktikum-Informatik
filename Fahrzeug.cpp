@@ -7,43 +7,18 @@
 
 #include "Fahrzeug.h"
 
-int Fahrzeug::p_iMaxID = 0;
 double dGlobaleZeit = 0.0;
 
-Fahrzeug::Fahrzeug() : ID(++p_iMaxID), p_sName("")
+Fahrzeug::Fahrzeug(std::string p_sName) : Simulationsobjekt(p_sName)
 {
 	std::cout << "Ein Fahrzeug mit dem Namen " << p_sName << " und der ID " << ID << " wurde erstellt." << std::endl;
 }
 
-Fahrzeug::Fahrzeug(std::string p_sName) : p_sName(p_sName), ID(++p_iMaxID)
+Fahrzeug::Fahrzeug(std::string p_sName, double p_dMaxGeschwindigkeit) : Simulationsobjekt(p_sName), p_dMaxGeschwindigkeit(p_dMaxGeschwindigkeit > 0 ? p_dMaxGeschwindigkeit : throw std::invalid_argument("Geschwindigkeit muss groeßer als 0 sein"))
 {
 	std::cout << "Ein Fahrzeug mit dem Namen " << p_sName << " und der ID " << ID << " wurde erstellt." << std::endl;
 }
 
-Fahrzeug::Fahrzeug(std::string p_sName, double p_dMaxGeschwindigkeit) : ID(++p_iMaxID), p_sName(p_sName), p_dMaxGeschwindigkeit(p_dMaxGeschwindigkeit > 0 ? p_dMaxGeschwindigkeit : throw std::invalid_argument("Geschwindigkeit muss groeßer als 0 sein"))
-{
-	std::cout << "Ein Fahrzeug mit dem Namen " << p_sName << " und der ID " << ID << " wurde erstellt." << std::endl;
-}
-
-void Fahrzeug::vKopf()
-{
-    std::cout << std::left;
-    std::cout << std::setw(6) << "ID"
-              << std::setw(13) << "Name"
-              << std::setw(20) << "MaxGeschwindigkeit"
-              << std::setw(20) << "Gesamtstrecke"
-    			<< std::setw(20) << "Akt. Geschw.";
-}
-
-void Fahrzeug::vAusgeben(std::ostream& out) const
-{
-    std::cout << std::left;
-    std::cout << std::setw(6) << ID
-              << std::setw(13) << p_sName
-              << std::setw(20) << std::fixed << std::setprecision(2) << p_dMaxGeschwindigkeit
-              << std::setw(20) << std::fixed << std::setprecision(2) << p_dGesamtStrecke
-              << std::setw(20) << std::fixed << dGeschwindigkeit();
-}
 
 void Fahrzeug::vSimulieren()
 {
@@ -60,6 +35,15 @@ void Fahrzeug::vSimulieren()
 	p_dZeit = dGlobaleZeit;
 	p_dGesamtZeit = p_dZeit;
 }
+
+void Fahrzeug::vAusgeben(std::ostream& out) const
+{
+	Simulationsobjekt::vAusgeben(out);
+    std::cout << std::setw(20) << std::fixed << std::setprecision(2) << p_dMaxGeschwindigkeit
+    << std::setw(20) << std::fixed << std::setprecision(2) << p_dGesamtStrecke
+    << std::setw(20) << std::fixed << dGeschwindigkeit();
+}
+
 
 std::string Fahrzeug::generateRandomName()
 {
@@ -94,11 +78,6 @@ Fahrzeug& Fahrzeug::operator=(const Fahrzeug& rhs) {
     p_dMaxGeschwindigkeit = rhs.p_dMaxGeschwindigkeit;
     // ID bleibt unverändert, da sie eindeutig für jedes Fahrzeug sein sollte
     return *this;
-}
-
-std::string Fahrzeug::getName() const
-{
-	return p_sName;
 }
 
 Fahrzeug::~Fahrzeug() {

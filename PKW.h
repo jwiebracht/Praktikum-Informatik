@@ -13,7 +13,7 @@
 
 class PKW : public Fahrzeug{
 public:
-	PKW();
+	PKW() = delete;
 	PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch);//Konstruktor ohne optionalen Tankinhalt
 	PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch, double p_dTankvolumen);
 	double dTanken(double dMenge) override;
