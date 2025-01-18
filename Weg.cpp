@@ -64,7 +64,13 @@ void Weg::vAnnahme(std::unique_ptr<Fahrzeug> pFahrzeug)
 {
 	pFahrzeug->vNeueStrecke(*this);
 	p_pFahrzeuge.push_back(std::move(pFahrzeug));
-	std::cout << "Annahme erfolgreich" << std::endl;
+	std::cout << "Annahme von fahrendem Fahrzeug erfolgreich" << std::endl;
+}
+
+void Weg::vAnnahme(std::unique_ptr<Fahrzeug> fahrzeug, double startZeit) {
+    fahrzeug->vNeueStrecke(*this, startZeit);
+    p_pFahrzeuge.push_front(std::move(fahrzeug));
+	std::cout << "Annahme von parkendem Fahrzeug erfolgreich" << std::endl;
 }
 
 double Weg::getTempolimit()

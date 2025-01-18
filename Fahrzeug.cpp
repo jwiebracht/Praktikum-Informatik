@@ -7,7 +7,7 @@
 
 #include "Fahrzeug.h"
 
-extern double dGlobaleZeit = 0.0;
+double dGlobaleZeit = 0.0;
 
 Fahrzeug::Fahrzeug(std::string p_sName) : Simulationsobjekt(p_sName)
 {
@@ -48,7 +48,13 @@ void Fahrzeug::vAusgeben(std::ostream& out) const
 
 void Fahrzeug::vNeueStrecke(Weg& weg)
 {
-	p_pVerhalten = std::make_unique<Verhalten>(weg);
+	p_pVerhalten = std::make_unique<Fahren>(weg);
+	p_dAbschnittStrecke = 0;
+}
+
+void Fahrzeug::vNeueStrecke(Weg& weg, double dStartzeit)
+{
+	p_pVerhalten = std::make_unique<Parken>(weg, dStartzeit);
 	p_dAbschnittStrecke = 0;
 }
 

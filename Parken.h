@@ -9,10 +9,19 @@
 #define PARKEN_H_
 #include "Verhalten.h"
 
+class Weg;
+
 class Parken : public Verhalten{
 public:
-	Parken();
+	Parken() = delete;
+	Parken(Weg& weg, double startZeitpunkt);
+
+	double dStrecke(Fahrzeug& aFzg,double dZeitIntervall);
+
 	virtual ~Parken();
+
+private:
+	double dStartZeitpunkt;
 };
 
 #endif /* PARKEN_H_ */

@@ -29,6 +29,7 @@ public:
 	static void vKopf();
 	void vAusgeben(std::ostream& out) const override;
 	void vAnnahme(std::unique_ptr<Fahrzeug> pFahrzeug);
+	void vAnnahme(std::unique_ptr<Fahrzeug> pFahrzeug, double zeit); //ueberladene Methode
 
 	double getTempolimit();
 	double getLaenge();

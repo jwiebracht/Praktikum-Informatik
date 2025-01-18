@@ -22,6 +22,7 @@ void vAufgabe_3();
 void vAufgabe_AB1();
 void vAufgabe_4();
 void vAufgabe_5();
+void vAufgabe_5a();
 
 int main()
 {
@@ -60,7 +61,8 @@ int main()
 	//vAufgabe_3();
 	//vAufgabe_AB1();
 	//vAufgabe_4();
-	vAufgabe_5();
+	//vAufgabe_5();
+	vAufgabe_5a();
 	return 0;
 
 }
@@ -261,6 +263,38 @@ void vAufgabe_5()
     		std::cout << weg << std::endl;
         }
 }
+
+void vAufgabe_5a() {
+    // Weg erstellen
+    Weg weg("Luxenburger", 200, p_eTempolimit::Autobahn);
+    double dZeittakt = 0.5; // Zeittakt in Stunden
+    double dSimulationsdauer = 5.0; // Gesamt-Simulationsdauer in Stunden
+
+    // Fahrzeuge erstellen
+    auto auto1 = std::make_unique<PKW>("BMW", 130, 10);
+    auto auto2 = std::make_unique<PKW>("Audi", 190, 15);
+    auto fahrrad1 = std::make_unique<Fahrrad>("Cube", 20);
+
+    // Fahrzeuge hinzufügen (einige parkend, andere fahrend)
+    weg.vAnnahme(std::move(auto1)); // Fahrendes Fahrzeug
+    weg.vAnnahme(std::move(auto2), 2.0); // Parkendes Fahrzeug mit Startzeit
+    weg.vAnnahme(std::move(fahrrad1)); // Fahrendes Fahrzeug
+
+    // Simulationsschleife
+    std::cout << "\nSimulation startet\n";
+    Weg::vKopf();
+
+    // Globale Zeit aktualisieren
+    for (dGlobaleZeit = 0.0; dGlobaleZeit < dSimulationsdauer; dGlobaleZeit += dZeittakt) {
+        std::cout << "\nSimulation zur Zeit: " << dGlobaleZeit << " Stunden\n";
+
+        weg.vSimulieren();
+
+        // Streckeninformationen ausgeben
+        weg.vAusgeben(std::cout);
+    }
+}
+
 
 
 

@@ -16,8 +16,9 @@
 #include <iostream>
 #include <list>
 #include "Simulationsobjekt.h"
-
 #include "Verhalten.h"
+#include "Fahren.h"
+#include "Parken.h"
 
 extern double dGlobaleZeit;
 
@@ -37,6 +38,7 @@ public:
 	static std::string generateRandomName();
 	virtual std::unique_ptr<Fahrzeug> fahrzeugErstellen() = 0;
 	void vNeueStrecke(Weg&);
+	void vNeueStrecke(Weg& weg, double dStartzeit);
 
 	double getGesamtStrecke() const;
 	double getMaxGeschwindigkeit();
