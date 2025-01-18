@@ -30,6 +30,7 @@ public:
 	void vAusgeben(std::ostream& out) const override;
 
 	double getTempolimit();
+	double getLaenge();
 
 	virtual ~Weg();
 

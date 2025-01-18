@@ -17,6 +17,8 @@
 #include <list>
 #include "Simulationsobjekt.h"
 
+#include "Verhalten.h"
+
 extern double dGlobaleZeit;
 
 class Fahrzeug : public Simulationsobjekt{
@@ -34,13 +36,19 @@ public:
 	virtual double dGeschwindigkeit() const = 0;
 	static std::string generateRandomName();
 	virtual std::unique_ptr<Fahrzeug> fahrzeugErstellen() = 0;
+	void vNeueStrecke(Weg&);
+
 	double getGesamtStrecke() const;
+	double getMaxGeschwindigkeit();
+
 	virtual ~Fahrzeug();
 
 protected:
 	 double p_dGesamtStrecke = 0.0;
 	 double p_dGesamtZeit = 0.0;
 	 double p_dMaxGeschwindigkeit;
+	 std::unique_ptr<Verhalten> p_pVerhalten;
+	 double p_dAbschnittStrecke;
 };
 
 bool operator< (const Fahrzeug& lhs, const Fahrzeug& rhs);

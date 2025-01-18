@@ -54,6 +54,11 @@ double Weg::getTempolimit()
 	return static_cast<double>(tempolimit);
 }
 
+double Weg::getLaenge()
+{
+	return p_dLaenge;
+}
+
 Weg::~Weg() {
 	// TODO Auto-generated destructor stub
 }

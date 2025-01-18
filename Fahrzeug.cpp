@@ -25,7 +25,9 @@ void Fahrzeug::vSimulieren()
 	if(p_dGesamtZeit < dGlobaleZeit)
 	{
 		double vergangeneZeit = dGlobaleZeit - p_dZeit;
-		p_dGesamtStrecke = p_dGesamtStrecke + vergangeneZeit * dGeschwindigkeit();
+		double teilStrecke = p_pVerhalten->dStrecke(*this, vergangeneZeit);
+        p_dGesamtStrecke += teilStrecke;
+        p_dAbschnittStrecke += teilStrecke;
 	}
 	else
 	{
@@ -44,6 +46,12 @@ void Fahrzeug::vAusgeben(std::ostream& out) const
     << std::setw(20) << std::fixed << dGeschwindigkeit();
 }
 
+void Fahrzeug::vNeueStrecke(Weg& weg)
+{
+	p_pVerhalten = std::make_unique<Verhalten>(weg);
+	p_dAbschnittStrecke = 0;
+}
+
 
 std::string Fahrzeug::generateRandomName()
 {
@@ -57,6 +65,10 @@ double Fahrzeug::getGesamtStrecke() const
 	return p_dGesamtStrecke;
 }
 
+double Fahrzeug::getMaxGeschwindigkeit()
+{
+	return p_dMaxGeschwindigkeit;
+}
 
 bool operator<(const Fahrzeug& lhs, const Fahrzeug& rhs)
 {
