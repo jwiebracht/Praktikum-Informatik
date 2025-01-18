@@ -21,6 +21,7 @@ void v_Aufgabe_2();
 void vAufgabe_3();
 void vAufgabe_AB1();
 void vAufgabe_4();
+void vAufgabe_5();
 
 int main()
 {
@@ -58,7 +59,8 @@ int main()
 	//v_Aufgabe_2();
 	//vAufgabe_3();
 	//vAufgabe_AB1();
-	vAufgabe_4();
+	//vAufgabe_4();
+	vAufgabe_5();
 	return 0;
 
 }
@@ -236,6 +238,28 @@ void vAufgabe_4()
 	std::unique_ptr<Weg> weg = std::make_unique<Weg>("Luxenburger", 5, p_eTempolimit::Autobahn);
 	Weg::vKopf();
 	std::cout << *weg << std::endl;
+}
+
+void vAufgabe_5()
+{
+	Weg weg("Luxenburger", 20, p_eTempolimit::Autobahn);
+    double dZeittakt = 0.5; // Zeittakt in Stunden
+    double dSimulationsdauer = 5.0; // Gesamt-Simulationsdauer in Stunden
+
+	std::unique_ptr<PKW> auto1 = std::make_unique<PKW>("BMW", 130, 10);
+	std::unique_ptr<PKW> auto2 = std::make_unique<PKW>("Audi", 190, 15);
+	std::unique_ptr<Fahrrad> fahrrad1 = std::make_unique<Fahrrad>("Cube", 20);
+
+	weg.vAnnahme(std::move(auto1));
+	weg.vAnnahme(std::move(auto2));
+	weg.vAnnahme(std::move(fahrrad1));;
+
+        for (dGlobaleZeit = 0; dGlobaleZeit < 2; dGlobaleZeit += 0.1)
+        {
+            Weg::vKopf();
+        	weg.vSimulieren();
+    		std::cout << weg << std::endl;
+        }
 }
 
 

@@ -10,6 +10,7 @@
 int Simulationsobjekt::p_iMaxID = 0;
 
 Simulationsobjekt::Simulationsobjekt(std::string p_sName) : ID(++p_iMaxID), p_sName(p_sName){
+	std::cout << "SimObj mit der ID: " << ID << " und dem Namen: " << p_sName << " wurde erstellt" << std::endl;
 }
 
 void Simulationsobjekt::vKopf()

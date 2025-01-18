@@ -25,11 +25,11 @@ public:
 	Verhalten() = delete;
 	Verhalten(Weg& weg);
 
-	double dStrecke(Fahrzeug& aFzg,double dZeitIntervall);
+	virtual double dStrecke(Fahrzeug& aFzg, double dZeitIntervall) = 0;
 
 	virtual ~Verhalten();
 
-private:
+protected:
 	Weg& aktuellerWeg;
 };
 

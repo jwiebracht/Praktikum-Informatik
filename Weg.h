@@ -28,6 +28,7 @@ public:
 	void vSimulieren();
 	static void vKopf();
 	void vAusgeben(std::ostream& out) const override;
+	void vAnnahme(std::unique_ptr<Fahrzeug> pFahrzeug);
 
 	double getTempolimit();
 	double getLaenge();

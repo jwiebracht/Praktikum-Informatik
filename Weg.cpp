@@ -13,11 +13,11 @@ Weg::Weg() : Simulationsobjekt("")
 }
 
 Weg::Weg(std::string p_sName, double p_dLaenge, p_eTempolimit limit) : Simulationsobjekt(p_sName), p_dLaenge(p_dLaenge), tempolimit(limit){
-
+	std::cout << "Weg: " << p_sName << " wurde erstellt" <<std::endl;
 }
 
 Weg::Weg(std::string p_sName, double p_dLaenge) : Simulationsobjekt(p_sName), p_dLaenge(p_dLaenge), tempolimit(p_eTempolimit::Autobahn){
-
+	std::cout << "Weg: " << p_sName << " wurde erstellt" <<std::endl;
 }
 
 void Weg::vSimulieren()
@@ -43,10 +43,28 @@ void Weg::vKopf() {
     std::cout << std::setfill(' '); // Zurücksetzen des Füllzeichens
 }
 
-void Weg::vAusgeben(std::ostream& out) const
+void Weg::vAusgeben(std::ostream& out) const {
+    Simulationsobjekt::vAusgeben(out);
+    std::cout << std::setw(20) << p_dLaenge << std::setw(10);
+    std::cout << "(";
+
+    bool first = true;
+    for (const auto& fahrzeug : p_pFahrzeuge) {
+        if (!first) {
+            std::cout << ", ";
+        }
+        std::cout << fahrzeug->getName();
+        first = false;
+    }
+
+    std::cout << ")" << std::endl;
+}
+
+void Weg::vAnnahme(std::unique_ptr<Fahrzeug> pFahrzeug)
 {
-	Simulationsobjekt::vAusgeben(out);
-	std::cout << std::setw(20) << p_dLaenge << std::setw(10) << "()" << std::endl;
+	pFahrzeug->vNeueStrecke(*this);
+	p_pFahrzeuge.push_back(std::move(pFahrzeug));
+	std::cout << "Annahme erfolgreich" << std::endl;
 }
 
 double Weg::getTempolimit()

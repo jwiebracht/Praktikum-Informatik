@@ -13,12 +13,6 @@ Verhalten::Verhalten(Weg& weg) : aktuellerWeg(weg)
 {
 }
 
-double Verhalten::dStrecke(Fahrzeug& aFzg, double dZeitIntervall) {
-    double maximaleStrecke = aFzg.getMaxGeschwindigkeit() * dZeitIntervall;
-    double verbleibendeStrecke = aktuellerWeg.getLaenge() - aFzg.getGesamtStrecke();
-    return std::min(maximaleStrecke, verbleibendeStrecke);
-}
-
 Verhalten::~Verhalten() {
 	// TODO Auto-generated destructor stub
 }
