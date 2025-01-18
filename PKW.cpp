@@ -73,7 +73,7 @@ void PKW::vSimulieren()
 
 void PKW::vKopf()
 {
-	Fahrzeug::vKopf();
+	Simulationsobjekt::vKopf();
 	std::cout << std::setw(20) << "Gesamtverbrauch" << std::setw(15) << "Tankinhalt";
 }
 

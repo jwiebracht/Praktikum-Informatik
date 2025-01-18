@@ -28,26 +28,25 @@ void Weg::vSimulieren()
 	}
 }
 
-void vKopf(){
-    const int colWidth = 20; // Breite jeder Spalte
+void Weg::vKopf() {
 
-    std::cout << std::left; // Links ausgerichtete Spalten
-    std::cout << std::setw(colWidth) << "ID"
-              << std::setw(colWidth) << "Name"
-              << std::setw(colWidth) << "Max Geschwindigkeit"
-              << std::setw(colWidth) << "Gesamtstrecke"
-              << std::setw(colWidth) << "Aktuelle Geschwindigkeit"
+    // Kopfzeile
+    std::cout << std::left
+              << std::setw(6) << "ID"
+              << "| " << std::setw(10) << "Name"
+              << "| " << std::setw(15) << "Laenge"
+              << "| " << "Fahrzeuge"
               << std::endl;
 
     // Trennlinie
-    std::cout << std::setfill('-') << std::setw(colWidth * 5) << "" << std::endl;
+    std::cout << std::setfill('-') << std::setw(45) << "" << std::endl;
     std::cout << std::setfill(' '); // Zurücksetzen des Füllzeichens
 }
 
 void Weg::vAusgeben(std::ostream& out) const
 {
 	Simulationsobjekt::vAusgeben(out);
-	std::cout << p_dLaenge << std::setw(20) << "()" << std::endl;
+	std::cout << std::setw(20) << p_dLaenge << std::setw(10) << "()" << std::endl;
 }
 
 double Weg::getTempolimit()
