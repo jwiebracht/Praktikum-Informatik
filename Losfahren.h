@@ -9,6 +9,7 @@
 #define LOSFAHREN_H_
 
 #include "Fahrausnahme.h"
+#include "Streckenende.h"
 
 class Losfahren : public Fahrausnahme{
 public:

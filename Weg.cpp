@@ -6,6 +6,9 @@
  */
 
 #include "Weg.h"
+#include "Fahrzeug.h"
+#include "Streckenende.h"
+#include "Losfahren.h"
 
 Weg::Weg() : Simulationsobjekt("")
 {
@@ -24,7 +27,11 @@ void Weg::vSimulieren()
 {
 	for(const auto& aktuellesFahrzeug : p_pFahrzeuge)
 	{
-		aktuellesFahrzeug->vSimulieren();
+		try{
+			aktuellesFahrzeug->vSimulieren();
+		} catch(Fahrausnahme& e){
+			e.vBearbeiten();
+		}
 	}
 }
 
@@ -81,6 +88,11 @@ double Weg::getTempolimit()
 double Weg::getLaenge()
 {
 	return p_dLaenge;
+}
+
+Weg& Weg::getWeg()
+{
+	return *this;
 }
 
 Weg::~Weg() {

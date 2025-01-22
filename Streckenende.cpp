@@ -6,6 +6,8 @@
  */
 
 #include "Streckenende.h"
+#include "Fahrzeug.h"
+#include "Weg.h"
 
 Streckenende::Streckenende(Fahrzeug& fahrzeug, Weg& weg) : Fahrausnahme(fahrzeug, weg) {
 }

@@ -13,6 +13,11 @@ Verhalten::Verhalten(Weg& weg) : aktuellerWeg(weg)
 {
 }
 
+Weg& Verhalten::getWeg()
+{
+	return aktuellerWeg;
+}
+
 Verhalten::~Verhalten() {
 	// TODO Auto-generated destructor stub
 }

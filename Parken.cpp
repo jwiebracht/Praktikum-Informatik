@@ -21,9 +21,14 @@ double Parken::dStrecke(Fahrzeug& aFzg, double dZeitIntervall)
 	}
 	else
 	{
+		if(losgefahren == false)
+		{
+			losgefahren = true;
+			throw Losfahren(aFzg, aktuellerWeg);
+		}
 	    double maximaleStrecke = aFzg.getMaxGeschwindigkeit() * dZeitIntervall;
 	    double verbleibendeStrecke = aktuellerWeg.getLaenge() - aFzg.getGesamtStrecke();
-	    if(verbleibendeStrecke == 0) std::cout << "Fahrzeug: " << aFzg.getName() << " ist am Ende des Weges angekommen" << std::endl;
+	    if(verbleibendeStrecke == 0) throw Streckenende(aFzg, aktuellerWeg);
 	    return std::min(maximaleStrecke, verbleibendeStrecke);
 	}
 }

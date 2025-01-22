@@ -23,6 +23,8 @@ void vAufgabe_AB1();
 void vAufgabe_4();
 void vAufgabe_5();
 void vAufgabe_5a();
+void vAufgabe_6();
+void vAufgabe_6a();
 
 int main()
 {
@@ -62,7 +64,9 @@ int main()
 	//vAufgabe_AB1();
 	//vAufgabe_4();
 	//vAufgabe_5();
-	vAufgabe_5a();
+	//vAufgabe_5a();
+	//vAufgabe_6();
+	vAufgabe_6a();
 	return 0;
 
 }
@@ -266,7 +270,7 @@ void vAufgabe_5()
 
 void vAufgabe_5a() {
     // Weg erstellen
-    Weg weg("Luxenburger", 200, p_eTempolimit::Autobahn);
+    Weg weg("Luxenburger", 50, p_eTempolimit::Autobahn);
     double dZeittakt = 0.5; // Zeittakt in Stunden
     double dSimulationsdauer = 5.0; // Gesamt-Simulationsdauer in Stunden
 
@@ -295,6 +299,77 @@ void vAufgabe_5a() {
     }
 }
 
+void vAufgabe_6() {
+    // Weg 1: Landstraße mit Tempolimit
+    Weg weg1("Landstraße", 10.0, p_eTempolimit::Ausserorts); // Tempolimit: 100 km/h
+
+    // Weg 2: Autobahn ohne Tempolimit
+    Weg weg2("Autobahn", 20.0, p_eTempolimit::Autobahn); // Tempolimit: unbegrenzt
+
+    // Fahrzeuge erstellen
+    auto pkw1 = std::make_unique<PKW>("BMW", 120, 10);    // Max: 120 km/h
+    auto pkw2 = std::make_unique<PKW>("Audi", 200, 15);   // Max: 200 km/h
+    auto fahrrad = std::make_unique<Fahrrad>("Trek", 25); // Max: 25 km/h
+
+    // Fahrzeuge auf die Wege setzen
+    weg1.vAnnahme(std::move(pkw1));         // Fahrend auf Weg 1
+    weg2.vAnnahme(std::move(pkw2), 1.0);   // Parkend auf Weg 2, Startzeit: 1.0
+    weg1.vAnnahme(std::move(fahrrad));     // Fahrend auf Weg 1
+
+    double dSimulationsdauer = 10;
+    double dZeittakt = 0.5;
+
+    Weg::vKopf();
+
+    while (dGlobaleZeit < dSimulationsdauer) {
+        dGlobaleZeit += dZeittakt;
+        weg1.vSimulieren();
+        weg2.vSimulieren();
+        weg1.vAusgeben(std::cout);
+        weg2.vAusgeben(std::cout);
+    }
+
+    std::cout << "\n*** Simulation beendet ***\n";
+}
+
+#include "SimuClient.h" // Header für die Grafikschnittstelle einbinden
+#include <vector>       // Für die Koordinaten
+
+void vAufgabe_6a()
+{
+    // Initialisierung der Grafik
+    bInitialisiereGrafik(800, 500);
+
+    // Erstellung der Wege
+    Weg wegHin("Landstraße", 500, p_eTempolimit::Ausserorts);
+    Weg wegRueck("Autobahn", 500, p_eTempolimit::Autobahn);
+
+    // Erstellung der Fahrzeuge
+    auto pkw1 = std::make_unique<PKW>("BMW", 120, 10);
+    auto pkw2 = std::make_unique<PKW>("Audi", 200, 15);
+    auto fahrrad = std::make_unique<Fahrrad>("Trek", 25);
+
+    // Fahrzeuge den Wegen hinzufügen
+    wegHin.vAnnahme(std::move(pkw1));
+    wegHin.vAnnahme(std::move(pkw2), 2.0); // Parkendes Fahrzeug
+    wegRueck.vAnnahme(std::move(fahrrad));
+
+    // Simulation
+    const double dSimulationsdauer = 10.0; // Dauer in Stunden
+    const double dZeittakt = 0.5;          // Simulationsschritt
+
+    for (dGlobaleZeit = 0.0; dGlobaleZeit < dSimulationsdauer; dGlobaleZeit += dZeittakt)
+    {
+        vSetzeZeit(dGlobaleZeit); // Zeit in der Grafik anzeigen
+
+        // Simulation der Wege
+        wegHin.vSimulieren();
+        wegRueck.vSimulieren();
+
+        // Verzögerung für visuelle Darstellung
+        vSleep(100); // 100 ms
+    }
+}
 
 
 

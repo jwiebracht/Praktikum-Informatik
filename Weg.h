@@ -18,6 +18,10 @@
 
 class Fahrzeug;
 
+class Losfahren;
+
+class Steckenende;
+
 enum class p_eTempolimit{Innerorts = 50,
 	Ausserorts = 100,
 	Autobahn = std::numeric_limits<int>::max()};
@@ -35,6 +39,7 @@ public:
 
 	double getTempolimit();
 	double getLaenge();
+	Weg& getWeg();
 
 	virtual ~Weg();
 

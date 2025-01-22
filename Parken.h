@@ -22,6 +22,7 @@ public:
 
 private:
 	double dStartZeitpunkt;
+	bool losgefahren;
 };
 
 #endif /* PARKEN_H_ */

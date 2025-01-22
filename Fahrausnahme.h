@@ -8,8 +8,9 @@
 #ifndef FAHRAUSNAHME_H_
 #define FAHRAUSNAHME_H_
 #include <exception>
-#include "Fahrzeug.h"
-#include "Weg.h"
+
+class Fahrzeug;
+class Weg;
 
 class Fahrausnahme : public std::exception{
 public:

@@ -26,6 +26,7 @@ public:
 	Verhalten(Weg& weg);
 
 	virtual double dStrecke(Fahrzeug& aFzg, double dZeitIntervall) = 0;
+	Weg& getWeg();
 
 	virtual ~Verhalten();
 

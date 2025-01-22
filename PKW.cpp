@@ -6,6 +6,7 @@
  */
 
 #include "PKW.h"
+#include "Weg.h"
 
 PKW::PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch) : Fahrzeug(p_sName, p_dMaxGeschwindigkeit), p_dVerbrauch(p_dVerbrauch), p_dTankvolumen(55), p_dTankinhalt(p_dTankvolumen/2)
 {
@@ -52,24 +53,25 @@ double PKW::dTanken(double dMenge)
 
 void PKW::vSimulieren()
 {
-	if(dGlobaleZeit > p_dZeit && p_dTankinhalt > 0)
-	{
-		//Sicherstellen das das Fahrzeug keinen negativen Tank bekommt
-		if(p_dTankinhalt - p_dVerbrauch * (dGlobaleZeit - p_dZeit) < 0)
-		{
-			p_dTankinhalt = 0;
-		}
-		else
-		{
-			p_dTankinhalt = p_dTankinhalt - p_dVerbrauch * (dGlobaleZeit - p_dZeit);
-		}
-		Fahrzeug::vSimulieren();
-	}
-	else if(p_dTankinhalt == 0)
-	{
+    if (dGlobaleZeit <= p_dZeit)
+        return;
+
+    double vergangeneZeit = dGlobaleZeit - p_dZeit;
+    double teilStrecke = p_pVerhalten->dStrecke(*this, vergangeneZeit);
+
+    if (teilStrecke == 0)
+    {
+        throw Streckenende(*this, p_pVerhalten->getWeg());
+    }
+    double verbrauch = p_dVerbrauch * vergangeneZeit;
+    p_dTankinhalt = std::max(0.0, p_dTankinhalt - verbrauch);
+    if (p_dTankinhalt == 0)
+    {
 		std::cout << "Tank ist leer, Fahrzeug: " << p_sName << " ist liegengeblieben" << std::endl;
-	}
+    }
+    Fahrzeug::vSimulieren();
 }
+
 
 void PKW::vKopf()
 {
@@ -86,9 +88,10 @@ void PKW::vAusgeben(std::ostream& out) const
             << std::setw(20) << std::fixed << std::setprecision(2) << p_dTankinhalt;
 }
 
-double PKW::dGeschwindigkeit() const
-{
-	return p_dMaxGeschwindigkeit;
+double PKW::dGeschwindigkeit() const {
+    Weg& aktuellerWeg = p_pVerhalten->getWeg();
+    double tempolimit = aktuellerWeg.getTempolimit();
+    return std::min(p_dMaxGeschwindigkeit, tempolimit);
 }
 
 std::unique_ptr<Fahrzeug> PKW::fahrzeugErstellen()

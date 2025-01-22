@@ -6,6 +6,8 @@
  */
 
 #include "Losfahren.h"
+#include "Fahrzeug.h"
+#include "Weg.h"
 
 Losfahren::Losfahren(Fahrzeug& fahrzeug, Weg& weg) : Fahrausnahme(fahrzeug, weg) {
 }
