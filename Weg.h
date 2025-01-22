@@ -14,7 +14,9 @@
 #include <list>
 #include <limits>
 #include <iomanip>
-#include "Fahrzeug.h"
+//#include "Fahrzeug.h"
+
+class Fahrzeug;
 
 enum class p_eTempolimit{Innerorts = 50,
 	Ausserorts = 100,

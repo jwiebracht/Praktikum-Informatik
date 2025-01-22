@@ -8,6 +8,8 @@
 #ifndef FAHREN_H_
 #define FAHREN_H_
 #include "Verhalten.h"
+#include "Streckenende.h"
+#include "Losfahren.h"
 
 class Fahren : public Verhalten{
 public:

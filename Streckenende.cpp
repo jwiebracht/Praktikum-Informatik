@@ -7,9 +7,15 @@
 
 #include "Streckenende.h"
 
-Streckenende::Streckenende() {
-	// TODO Auto-generated constructor stub
+Streckenende::Streckenende(Fahrzeug& fahrzeug, Weg& weg) : Fahrausnahme(fahrzeug, weg) {
+}
 
+void Streckenende::vBearbeiten() {
+    std::cout << "Streckenende-Ausnahme bei Fahrzeug: "
+              << fahrzeug.getName()
+              << " auf Weg: "
+              << weg.getName()
+              << std::endl;
 }
 
 Streckenende::~Streckenende() {

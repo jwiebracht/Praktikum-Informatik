@@ -7,8 +7,7 @@
 
 #include "Fahrausnahme.h"
 
-Fahrausnahme::Fahrausnahme() {
-	// TODO Auto-generated constructor stub
+Fahrausnahme::Fahrausnahme(Fahrzeug& fahrzeug, Weg& weg) : fahrzeug(fahrzeug), weg(weg){
 
 }
 

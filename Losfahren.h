@@ -8,9 +8,15 @@
 #ifndef LOSFAHREN_H_
 #define LOSFAHREN_H_
 
-class Losfahren {
+#include "Fahrausnahme.h"
+
+class Losfahren : public Fahrausnahme{
 public:
-	Losfahren();
+	Losfahren() = delete;
+	Losfahren(Fahrzeug& fahrzeug, Weg& weg);
+
+	void vBearbeiten();
+
 	virtual ~Losfahren();
 };
 

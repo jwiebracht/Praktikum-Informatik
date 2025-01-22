@@ -7,9 +7,15 @@
 
 #include "Losfahren.h"
 
-Losfahren::Losfahren() {
-	// TODO Auto-generated constructor stub
+Losfahren::Losfahren(Fahrzeug& fahrzeug, Weg& weg) : Fahrausnahme(fahrzeug, weg) {
+}
 
+void Losfahren::vBearbeiten() {
+    std::cout << "Losfahren-Ausnahme bei Fahrzeug: "
+              << fahrzeug.getName()
+              << " auf Weg: "
+              << weg.getName()
+              << std::endl;
 }
 
 Losfahren::~Losfahren() {

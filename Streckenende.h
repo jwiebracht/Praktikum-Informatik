@@ -8,9 +8,15 @@
 #ifndef STRECKENENDE_H_
 #define STRECKENENDE_H_
 
-class Streckenende {
+#include "Fahrausnahme.h"
+
+class Streckenende : public Fahrausnahme{
 public:
-	Streckenende();
+	Streckenende() = delete;
+	Streckenende(Fahrzeug& fahrzeug, Weg& weg);
+
+	void vBearbeiten();
+
 	virtual ~Streckenende();
 };
 
