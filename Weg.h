@@ -14,6 +14,7 @@
 #include <list>
 #include <limits>
 #include <iomanip>
+#include "vertagt_liste.h"
 //#include "Fahrzeug.h"
 
 class Fahrzeug;
@@ -36,6 +37,7 @@ public:
 	void vAusgeben(std::ostream& out) const override;
 	void vAnnahme(std::unique_ptr<Fahrzeug> pFahrzeug);
 	void vAnnahme(std::unique_ptr<Fahrzeug> pFahrzeug, double zeit); //ueberladene Methode
+	std::unique_ptr<Fahrzeug> pAbgabe(Fahrzeug& fahrzeug);
 
 	double getTempolimit();
 	double getLaenge();
@@ -45,7 +47,7 @@ public:
 
 private:
 	double p_dLaenge;
-	std::list<std::unique_ptr<Fahrzeug>> p_pFahrzeuge;
+	vertagt::VListe<std::unique_ptr<Fahrzeug>> p_pFahrzeuge;
 	p_eTempolimit tempolimit;
 
 };

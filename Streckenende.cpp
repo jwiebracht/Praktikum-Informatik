@@ -18,6 +18,7 @@ void Streckenende::vBearbeiten() {
               << " auf Weg: "
               << weg.getName()
               << std::endl;
+	weg.pAbgabe(fahrzeug);
 }
 
 Streckenende::~Streckenende() {

@@ -22,6 +22,7 @@ public:
 	void vAusgeben(std::ostream& out) const override;
 	double dGeschwindigkeit() const override;
 	std::unique_ptr<Fahrzeug> fahrzeugErstellen() override;
+	void vZeichnen(Weg& weg) const override;
 	virtual ~PKW();
 
 private:

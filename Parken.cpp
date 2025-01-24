@@ -15,22 +15,17 @@ Parken::Parken(Weg& weg, double startZeitpunkt)
 
 double Parken::dStrecke(Fahrzeug& aFzg, double dZeitIntervall)
 {
-	if(dStartZeitpunkt < dGlobaleZeit)
+
+	if (dGlobaleZeit >= dStartZeitpunkt)
 	{
-		return 0.0;
+		std::cout << aFzg.getName() << " hat Startzeitpunkt erreicht" << std::endl;
+		throw Losfahren(aFzg, aktuellerWeg);
 	}
 	else
 	{
-		if(losgefahren == false)
-		{
-			losgefahren = true;
-			throw Losfahren(aFzg, aktuellerWeg);
-		}
-	    double maximaleStrecke = aFzg.getMaxGeschwindigkeit() * dZeitIntervall;
-	    double verbleibendeStrecke = aktuellerWeg.getLaenge() - aFzg.getGesamtStrecke();
-	    if(verbleibendeStrecke == 0) throw Streckenende(aFzg, aktuellerWeg);
-	    return std::min(maximaleStrecke, verbleibendeStrecke);
+		return 0;
 	}
+
 }
 
 Parken::~Parken() {

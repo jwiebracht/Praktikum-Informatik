@@ -6,6 +6,7 @@
  */
 
 #include "Fahrzeug.h"
+#include "Weg.h"
 
 double dGlobaleZeit = 0.0;
 
@@ -17,6 +18,12 @@ Fahrzeug::Fahrzeug(std::string p_sName) : Simulationsobjekt(p_sName)
 Fahrzeug::Fahrzeug(std::string p_sName, double p_dMaxGeschwindigkeit) : Simulationsobjekt(p_sName), p_dMaxGeschwindigkeit(p_dMaxGeschwindigkeit > 0 ? p_dMaxGeschwindigkeit : throw std::invalid_argument("Geschwindigkeit muss groeßer als 0 sein"))
 {
 	//std::cout << "Ein Fahrzeug mit dem Namen " << p_sName << " und der ID " << ID << " wurde erstellt." << std::endl;
+}
+
+void Fahrzeug::vZeichnen(Weg& weg) const
+{
+	double dRelPosition = p_dAbschnittStrecke / weg.getLaenge();
+	bZeichneFahrrad(p_sName, weg.getName(), dRelPosition, dGeschwindigkeit());
 }
 
 

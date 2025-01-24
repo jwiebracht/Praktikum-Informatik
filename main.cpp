@@ -12,8 +12,10 @@
 #include <iomanip>
 #include <algorithm>
 #include <cstdlib>
+#include <random>
 #include "math.h"
 #include "Weg.h"
+#include "vertagt_liste.h"
 using namespace std;
 
 void vAufgabe_1a();
@@ -25,6 +27,7 @@ void vAufgabe_5();
 void vAufgabe_5a();
 void vAufgabe_6();
 void vAufgabe_6a();
+void vAufgabe_6b();
 
 int main()
 {
@@ -67,6 +70,7 @@ int main()
 	//vAufgabe_5a();
 	//vAufgabe_6();
 	vAufgabe_6a();
+	//vAufgabe_6b();
 	return 0;
 
 }
@@ -332,44 +336,119 @@ void vAufgabe_6() {
     std::cout << "\n*** Simulation beendet ***\n";
 }
 
-#include "SimuClient.h" // Header für die Grafikschnittstelle einbinden
-#include <vector>       // Für die Koordinaten
-
-void vAufgabe_6a()
-{
-    // Initialisierung der Grafik
+void vAufgabe_6a() {
+    // Grafik initialisieren
     bInitialisiereGrafik(800, 500);
 
-    // Erstellung der Wege
-    Weg wegHin("Landstraße", 500, p_eTempolimit::Ausserorts);
-    Weg wegRueck("Autobahn", 500, p_eTempolimit::Autobahn);
+    // Wege erstellen
+    Weg weg1("Landstr1", 500, p_eTempolimit::Ausserorts);
+    Weg weg2("Landstr2", 500, p_eTempolimit::Innerorts);
 
-    // Erstellung der Fahrzeuge
-    auto pkw1 = std::make_unique<PKW>("BMW", 120, 10);
-    auto pkw2 = std::make_unique<PKW>("Audi", 200, 15);
-    auto fahrrad = std::make_unique<Fahrrad>("Trek", 25);
+    // Straßen zeichnen
+    int iKoordinaten[] = {700, 250, 100, 250};
+    bZeichneStrasse(weg1.getName(), weg2.getName(), 100, 2, iKoordinaten);
 
-    // Fahrzeuge den Wegen hinzufügen
-    wegHin.vAnnahme(std::move(pkw1));
-    wegHin.vAnnahme(std::move(pkw2), 2.0); // Parkendes Fahrzeug
-    wegRueck.vAnnahme(std::move(fahrrad));
+    // Fahrzeuge auf die Wege setzen
+    weg1.vAnnahme(std::make_unique<Fahrrad>("Citybike", 40));
+    weg1.vAnnahme(std::make_unique<PKW>("Mazda", 60, 6, 10));
+    weg1.vAnnahme(std::make_unique<PKW>("Porsche", 70, 6, 60));
+    weg2.vAnnahme(std::make_unique<Fahrrad>("BMX", 25));
+    //weg1.vAnnahme(std::make_unique<PKW>("Audi", 70, 6, 60), 2);
+    weg2.vAnnahme(std::make_unique<Fahrrad>("Mountainbike", 25), 4);
 
-    // Simulation
-    const double dSimulationsdauer = 10.0; // Dauer in Stunden
-    const double dZeittakt = 0.5;          // Simulationsschritt
+    // Simulationsschleife
+    for (int i = 0; i <= 20; ++i) {
+        // Fahrzeuge während der Simulation hinzufügen
+        if (i == 10) {
+            weg1.vAnnahme(std::make_unique<PKW>("VW", 80, 7, 100), 6);
+        }
 
-    for (dGlobaleZeit = 0.0; dGlobaleZeit < dSimulationsdauer; dGlobaleZeit += dZeittakt)
-    {
-        vSetzeZeit(dGlobaleZeit); // Zeit in der Grafik anzeigen
+        // Globale Zeit aktualisieren
+        dGlobaleZeit += 0.5;
+        std::cout << "Aktuelle Zeit: " << dGlobaleZeit << " Stunden" << std::endl;
 
-        // Simulation der Wege
-        wegHin.vSimulieren();
-        wegRueck.vSimulieren();
+        // Globale Zeit im Grafikfenster setzen
+        vSetzeZeit(dGlobaleZeit);
 
-        // Verzögerung für visuelle Darstellung
-        vSleep(100); // 100 ms
+        // Simulation der Wege und Fahrzeuge
+        weg1.vSimulieren();
+        weg2.vSimulieren();
+
+        // Informationen der Wege ausgeben
+        std::cout << weg1 << std::endl;
+        std::cout << weg2 << std::endl;
+
+        // Simulation für kurze Zeit pausieren
+        vSleep(1000);
     }
+
+    // Grafik beenden
+    vBeendeGrafik();
 }
+
+void vAufgabe_6b()
+{
+	static std::mt19937 device(0);
+	std::uniform_int_distribution<int> dist(1, 10);
+	vertagt::VListe<int> liste1;
+	for (int i = 0; i < 10; i++)
+	{
+		liste1.push_back(dist(device)); // Zufallszahlen von 1 bis 10 werden erzeugt, es immer die selben, da selber Seed, selber Anfang
+	}
+	liste1.vAktualisieren(); // Liste wird aktualisiert
+
+	std::cout << "Liste mit einlesen der Zahlen nach aktualisieren:  " << std::endl;
+
+	for (auto it = liste1.begin(); it != liste1.end(); it++) // Liste ausgeben
+	{ // Über Itaerator von Anfang bis Ende durchgehen; It beschreibt aktuelles Objekt
+		std::cout << *it << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	for (auto it = liste1.begin(); it != liste1.end(); it++)
+	{
+		if (*it > 5) // Jedes Objekt größer wird gelöscht
+		{
+			liste1.erase(it); // Objekt wird gelöscht
+		}
+	}
+
+	std::cout << "Liste nach erase vor aktualisieren: " << std::endl;
+
+	for (auto it = liste1.begin(); it != liste1.end(); it++) // Liste erneut ausgeben
+	{ //da vAktualisieren() noch nicht ausgeführt wurde, sollte hier dieselbe Ausgabe erfolgen
+		std::cout << *it << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	std::cout << "Liste nach erase nach aktualsieren: " << std::endl;
+
+	liste1.vAktualisieren(); // jetzt wird die Liste aktualisiert, damit wird Löschen sichtbar
+
+	for (auto it = liste1.begin(); it != liste1.end(); it++) // Liste wird nach Löschen jetzt ausgebeben
+	{
+		std::cout << *it << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	//Zum Schluss fügen Sie am Anfang und am Ende der Liste noch zwei beliebige (verschiedene) Zahlen ein und geben die Liste zur Kontrolle nochmal aus
+	liste1.push_front(4); //Vorne wird die 4 eingefügt
+	liste1.push_back(1); // Am Ende wird die 1 hinzugefügt
+
+	liste1.vAktualisieren(); //Liste wird ein letztes Mal aktualsiert
+
+	std::cout << "Liste nach Einfüen der Zahlen und nach aktualisieren: " << std::endl;
+
+	for (auto it = liste1.begin(); it != liste1.end(); it++)
+	{
+		std::cout << *it << std::endl;
+	}
+	std::cout << std::endl;
+}
+
 
 
 

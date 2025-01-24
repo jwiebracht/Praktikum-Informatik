@@ -28,6 +28,15 @@ PKW::PKW(std::string p_sName, double p_dMaxGeschwindigkeit, double p_dVerbrauch,
 	          << "Tankinhalt: " << p_dTankinhalt << " l\n";
 }
 
+void PKW::vZeichnen(Weg& pWeg) const
+{
+	double dRelPos = p_dAbschnittStrecke / pWeg.getLaenge();
+
+	if (dRelPos > 1){ dRelPos = 1;}
+
+	bZeichnePKW(p_sName, pWeg.getName(), dRelPos, dGeschwindigkeit(), p_dTankinhalt);
+}
+
 double PKW::dTanken(double dMenge)
 {
 	if(dMenge == 0.0)
@@ -65,9 +74,9 @@ void PKW::vSimulieren()
     }
     double verbrauch = p_dVerbrauch * vergangeneZeit;
     p_dTankinhalt = std::max(0.0, p_dTankinhalt - verbrauch);
-    if (p_dTankinhalt == 0)
-    {
-		std::cout << "Tank ist leer, Fahrzeug: " << p_sName << " ist liegengeblieben" << std::endl;
+    if (p_dTankinhalt == 0) {
+        std::cout << "Tank ist leer, Fahrzeug: " << p_sName << " wurde gestoppt." << std::endl;
+        return; // Fahrzeug darf nicht weiter simuliert werden
     }
     Fahrzeug::vSimulieren();
 }

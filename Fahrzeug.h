@@ -16,6 +16,7 @@
 #include <iostream>
 #include <list>
 #include "Simulationsobjekt.h"
+#include "SimuClient.h"
 #include "Verhalten.h"
 #include "Fahren.h"
 #include "Parken.h"
@@ -39,6 +40,7 @@ public:
 	virtual std::unique_ptr<Fahrzeug> fahrzeugErstellen() = 0;
 	void vNeueStrecke(Weg&);
 	void vNeueStrecke(Weg& weg, double dStartzeit);
+	virtual void vZeichnen(Weg& weg) const;
 
 	double getGesamtStrecke() const;
 	double getMaxGeschwindigkeit();

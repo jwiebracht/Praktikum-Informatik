@@ -25,14 +25,17 @@ Weg::Weg(std::string p_sName, double p_dLaenge) : Simulationsobjekt(p_sName), p_
 
 void Weg::vSimulieren()
 {
+	p_pFahrzeuge.vAktualisieren();
 	for(const auto& aktuellesFahrzeug : p_pFahrzeuge)
 	{
 		try{
 			aktuellesFahrzeug->vSimulieren();
+			aktuellesFahrzeug->vZeichnen(*this);
 		} catch(Fahrausnahme& e){
 			e.vBearbeiten();
 		}
 	}
+	p_pFahrzeuge.vAktualisieren();
 }
 
 void Weg::vKopf() {
@@ -79,6 +82,22 @@ void Weg::vAnnahme(std::unique_ptr<Fahrzeug> fahrzeug, double startZeit) {
     p_pFahrzeuge.push_front(std::move(fahrzeug));
 	std::cout << "Annahme von parkendem Fahrzeug erfolgreich" << std::endl;
 }
+
+std::unique_ptr<Fahrzeug> Weg::pAbgabe(Fahrzeug& fahrzeug)
+{
+	for (auto it = p_pFahrzeuge.begin(); it != p_pFahrzeuge.end(); it++)
+	{
+		if ((*it != nullptr) && (**it == fahrzeug))
+		{
+			std::unique_ptr<Fahrzeug>pFahrzeugLokal = move(*it); //Zwischenspeicherung
+			p_pFahrzeuge.erase((it)); //Listenelement wird gelöcht
+			return pFahrzeugLokal;
+		}
+	}
+	return nullptr;
+}
+
+
 
 double Weg::getTempolimit()
 {

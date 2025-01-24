@@ -13,6 +13,8 @@ Losfahren::Losfahren(Fahrzeug& fahrzeug, Weg& weg) : Fahrausnahme(fahrzeug, weg)
 }
 
 void Losfahren::vBearbeiten() {
+	std::unique_ptr<Fahrzeug> pFahrzeugKopie = weg.pAbgabe(fahrzeug);
+	weg.vAnnahme(move(pFahrzeugKopie));
     std::cout << "Losfahren-Ausnahme bei Fahrzeug: "
               << fahrzeug.getName()
               << " auf Weg: "
