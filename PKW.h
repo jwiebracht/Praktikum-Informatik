@@ -23,6 +23,10 @@ public:
 	double dGeschwindigkeit() const override;
 	std::unique_ptr<Fahrzeug> fahrzeugErstellen() override;
 	void vZeichnen(Weg& weg) const override;
+
+	double getTankvolumen();
+	double getTankinhalt();
+
 	virtual ~PKW();
 
 private:

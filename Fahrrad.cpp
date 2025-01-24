@@ -26,6 +26,17 @@ double Fahrrad::dTanken(double dMenge)
 
 void Fahrrad::vSimulieren()
 {
+    if (dGlobaleZeit <= p_dZeit)
+        return;
+
+    double vergangeneZeit = dGlobaleZeit - p_dZeit;
+    double teilStrecke = p_pVerhalten->dStrecke(*this, vergangeneZeit);
+
+    if (teilStrecke == 0)
+    {
+    	p_dAbschnittStrecke = 0;
+        //throw Streckenende(*this, p_pVerhalten->getWeg());
+    }
 	Fahrzeug::vSimulieren();
 }
 
@@ -34,6 +45,16 @@ std::unique_ptr<Fahrzeug> Fahrrad::fahrzeugErstellen()
 	std::string name =  Fahrzeug::generateRandomName();
 	std::unique_ptr<Fahrrad> bike = std::make_unique<Fahrrad>(name, 30);
 	return bike;
+}
+
+double Fahrrad::getTankvolumen()
+{
+	return 0;
+}
+
+double Fahrrad::getTankinhalt()
+{
+	return 0;
 }
 
 Fahrrad::~Fahrrad() {

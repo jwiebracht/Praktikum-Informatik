@@ -18,6 +18,10 @@ public:
 	double dTanken(double dMenge) override;
 	void vSimulieren();
 	std::unique_ptr<Fahrzeug> fahrzeugErstellen() override;
+
+	double getTankvolumen();
+	double getTankinhalt();
+
 	virtual ~Fahrrad();
 };
 

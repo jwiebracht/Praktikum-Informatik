@@ -70,7 +70,8 @@ void PKW::vSimulieren()
 
     if (teilStrecke == 0)
     {
-        throw Streckenende(*this, p_pVerhalten->getWeg());
+    	p_dAbschnittStrecke = 0;
+        //throw Streckenende(*this, p_pVerhalten->getWeg());
     }
     double verbrauch = p_dVerbrauch * vergangeneZeit;
     p_dTankinhalt = std::max(0.0, p_dTankinhalt - verbrauch);
@@ -108,6 +109,16 @@ std::unique_ptr<Fahrzeug> PKW::fahrzeugErstellen()
 	std::string name =  Fahrzeug::generateRandomName();
 	std::unique_ptr<PKW> pkw = std::make_unique<PKW>(name, 100, 5);
 	return pkw;
+}
+
+double PKW::getTankvolumen()
+{
+	return p_dTankvolumen;
+}
+
+double PKW::getTankinhalt()
+{
+	return p_dTankinhalt;
 }
 
 PKW::~PKW() {

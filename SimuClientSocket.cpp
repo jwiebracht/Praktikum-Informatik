@@ -17,7 +17,7 @@ bool SimuClientSocket::Connect(std::string address, std::string port){
 }
 void SimuClientSocket::Send(std::stringstream& msg) {
   #if DEBUG
-  std::cout << "Socket DEBUG:: sending Message: " << msg.str() << std::endl;
+	std::cout << "Socket DEBUG:: sending Message: " << msg.str() << std::endl;
   #endif
   boost::system::error_code ec;
   boost::asio::write(this->socket, boost::asio::buffer(msg.str().c_str(), msg.str().size()), ec);

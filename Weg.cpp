@@ -114,6 +114,28 @@ Weg& Weg::getWeg()
 	return *this;
 }
 
+std::shared_ptr<const Kreuzung> Weg::getZielKreuzung()
+{
+	std::shared_ptr<const Kreuzung> shared = pZielKreuzung.lock();
+	return shared;
+}
+
+std::shared_ptr<Weg> Weg::getRuekweg()
+{
+	std::shared_ptr<Weg> shared = pRueckweg.lock();
+	return shared;
+}
+
+std::string Weg::getName()
+{
+	return p_sName;
+}
+
+void Weg::setZielkreuzung(std::shared_ptr<Kreuzung> ziel)
+{
+	pZielKreuzung = ziel;
+}
+
 Weg::~Weg() {
 	// TODO Auto-generated destructor stub
 }

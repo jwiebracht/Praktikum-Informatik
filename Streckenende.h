@@ -9,6 +9,7 @@
 #define STRECKENENDE_H_
 
 #include "Fahrausnahme.h"
+#include <iostream>
 
 class Streckenende : public Fahrausnahme{
 public:

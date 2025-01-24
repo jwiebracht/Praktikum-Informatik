@@ -41,9 +41,12 @@ public:
 	void vNeueStrecke(Weg&);
 	void vNeueStrecke(Weg& weg, double dStartzeit);
 	virtual void vZeichnen(Weg& weg) const;
+	virtual double getTankvolumen() = 0;
+	virtual double getTankinhalt() = 0;
 
 	double getGesamtStrecke() const;
 	double getMaxGeschwindigkeit();
+	double getTeilstrecke();
 
 	virtual ~Fahrzeug();
 
@@ -52,7 +55,7 @@ protected:
 	 double p_dGesamtZeit = 0.0;
 	 double p_dMaxGeschwindigkeit;
 	 std::unique_ptr<Verhalten> p_pVerhalten;
-	 double p_dAbschnittStrecke;
+	 double p_dAbschnittStrecke = 0;
 };
 
 bool operator< (const Fahrzeug& lhs, const Fahrzeug& rhs);

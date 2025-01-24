@@ -17,7 +17,10 @@ Fahren::Fahren(Weg& weg) : Verhalten(weg) {
 double Fahren::dStrecke(Fahrzeug& aFzg, double dZeitIntervall) {
     double maximaleStrecke = aFzg.getMaxGeschwindigkeit() * dZeitIntervall;
     double verbleibendeStrecke = aktuellerWeg.getLaenge() - aFzg.getGesamtStrecke();
-    if(verbleibendeStrecke == 0) throw Streckenende(aFzg, aktuellerWeg);
+    if(verbleibendeStrecke == 0)
+    {
+    	throw Streckenende(aFzg, aktuellerWeg);
+    }
     return std::min(maximaleStrecke, verbleibendeStrecke);
 }
 

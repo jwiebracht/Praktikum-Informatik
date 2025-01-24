@@ -15,6 +15,7 @@
 #include <limits>
 #include <iomanip>
 #include "vertagt_liste.h"
+#include "Kreuzung.h"
 //#include "Fahrzeug.h"
 
 class Fahrzeug;
@@ -42,6 +43,10 @@ public:
 	double getTempolimit();
 	double getLaenge();
 	Weg& getWeg();
+	std::string getName();
+	std::shared_ptr<const Kreuzung> getZielKreuzung();
+	std::shared_ptr<Weg> getRuekweg();
+	void setZielkreuzung(std::shared_ptr<Kreuzung>);
 
 	virtual ~Weg();
 
@@ -49,6 +54,8 @@ private:
 	double p_dLaenge;
 	vertagt::VListe<std::unique_ptr<Fahrzeug>> p_pFahrzeuge;
 	p_eTempolimit tempolimit;
+    std::weak_ptr<const Kreuzung> pZielKreuzung;
+    std::weak_ptr<Weg> pRueckweg;
 
 };
 
