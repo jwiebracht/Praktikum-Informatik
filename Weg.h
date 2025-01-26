@@ -47,6 +47,7 @@ public:
 	std::shared_ptr<const Kreuzung> getZielKreuzung();
 	std::shared_ptr<Weg> getRuekweg();
 	void setZielkreuzung(std::shared_ptr<Kreuzung>);
+	void vZeichneFahrzeuge();
 
 	virtual ~Weg();
 

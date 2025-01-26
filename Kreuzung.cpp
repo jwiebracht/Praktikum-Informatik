@@ -86,6 +86,14 @@ void Kreuzung::vAusgeben(std::ostream& out) const
 	Simulationsobjekt::vAusgeben(out);
 }
 
+void Kreuzung::zeichneFahrzeuge()
+{
+    for (auto it = p_pWege.begin(); it != p_pWege.end(); it++)
+    {
+        (*it)->vZeichneFahrzeuge();
+    }
+}
+
 Kreuzung::~Kreuzung() {
 	// TODO Auto-generated destructor stub
 }

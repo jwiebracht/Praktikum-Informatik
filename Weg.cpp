@@ -23,6 +23,18 @@ Weg::Weg(std::string p_sName, double p_dLaenge) : Simulationsobjekt(p_sName), p_
 	std::cout << "Weg: " << p_sName << " wurde erstellt" <<std::endl;
 }
 
+void Weg::vZeichneFahrzeuge()
+{
+    if (!p_pFahrzeuge.empty())
+    {
+        for (auto& it : p_pFahrzeuge)
+        {
+            it->vZeichnen(*this);
+            //vSleep(300);
+        }
+    }
+}
+
 void Weg::vSimulieren()
 {
 	p_pFahrzeuge.vAktualisieren();

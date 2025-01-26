@@ -453,103 +453,63 @@ void vAufgabe_6b()
 
 void vAufgabe_7()
 {
-	string sStr1hin = "Str1Hin";
-	string sStr1rueck = "Str1Rueck";
+	shared_ptr<Kreuzung> Kr1 = make_shared<Kreuzung>("Kreuzung1", 0);
+	shared_ptr<Kreuzung> Kr2 = make_shared<Kreuzung>("Kreuzung2", 1000);
+	shared_ptr<Kreuzung> Kr3 = make_shared<Kreuzung>("Kreuzung3", 0);
+	shared_ptr<Kreuzung> Kr4 = make_shared<Kreuzung>("Kreuzung4", 0);
 
-	string sStr2hin = "Str2Hin";
-	string sStr2rueck = "Str2Rueck";
+	Kreuzung::vVerbinde("W12", "W21", 40, Kr1, Kr2, p_eTempolimit::Innerorts);
+	Kreuzung::vVerbinde("W23a", "W32a", 115, Kr2, Kr3, p_eTempolimit::Autobahn);
+	Kreuzung::vVerbinde("W23b", "W32b", 40, Kr2, Kr3, p_eTempolimit::Innerorts);
+	Kreuzung::vVerbinde("W24", "W42", 55, Kr2, Kr4, p_eTempolimit::Innerorts);
+	Kreuzung::vVerbinde("W34", "W43", 85, Kr3, Kr4, p_eTempolimit::Autobahn);
+	Kreuzung::vVerbinde("W44a", "W44b", 130, Kr4, Kr4, p_eTempolimit::Ausserorts);
 
-	string sStr3hin = "Str3Hin";
-	string sStr3rueck = "Str3Rueck";
-
-	string sStr4hin = "Str4Hin";
-	string sStr4rueck = "Str4Rueck";
-
-	string sStr5hin = "Str5Hin";
-	string sStr5rueck = "Str5Rueck";
-
-	string sStr6hin = "Str6Hin";
-	string sStr6rueck = "Str6Rueck";
-
-	double dLaengeStr1 = 40;
-	double dLaengeStr2 = 115;
-	double dLaengeStr3 = 40;
-	double dLaengeStr4 = 55;
-	double dLaengeStr5 = 85;
-	double dLaengeStr6 = 130;
-
-	p_eTempolimit iTempolimitStr1 = p_eTempolimit::Innerorts;
-	p_eTempolimit iTempolimitStr2 = p_eTempolimit::Autobahn;
-	p_eTempolimit iTempolimitStr3 = p_eTempolimit::Innerorts;
-	p_eTempolimit iTempolimitStr4 = p_eTempolimit::Innerorts;
-	p_eTempolimit iTempolimitStr5 = p_eTempolimit::Autobahn;
-	p_eTempolimit iTempolimitStr6 = p_eTempolimit::Ausserorts;
-
-	auto kreuzung1 = std::make_shared<Kreuzung>("Kreuzung1", 0);
-	auto kreuzung2 = std::make_shared<Kreuzung>("Kreuzung2", 1000);
-	auto kreuzung3 = std::make_shared<Kreuzung>("Kreuzung3", 0);
-	auto kreuzung4 = std::make_shared<Kreuzung>("Kreuzung4", 0);
-
-	Kreuzung::vVerbinde(sStr1hin, sStr1rueck, dLaengeStr1, kreuzung1, kreuzung2, iTempolimitStr1); // Korrekt
-	Kreuzung::vVerbinde(sStr2hin, sStr2rueck, dLaengeStr2, kreuzung2, kreuzung3, iTempolimitStr2); // Geändert
-	Kreuzung::vVerbinde(sStr3hin, sStr3rueck, dLaengeStr3, kreuzung2, kreuzung3, iTempolimitStr3); // Korrekt
-	Kreuzung::vVerbinde(sStr4hin, sStr4rueck, dLaengeStr4, kreuzung4, kreuzung3, iTempolimitStr4); // Geändert
-	Kreuzung::vVerbinde(sStr5hin, sStr5rueck, dLaengeStr5, kreuzung4, kreuzung3, iTempolimitStr5); // Korrekt
-	Kreuzung::vVerbinde(sStr6hin, sStr6rueck, dLaengeStr6, kreuzung4, kreuzung4, iTempolimitStr6); // Korrekt
-
-
-
-
-	int iKoordinatenStr1[] = { 680,40,680,300 };
-	int iKoordinatenStr2[] = { 680,300,850,300,970,390,970,500,850,570,680,570 };
-	int iKoordinatenStr3[] = { 680,300,680,570 };
-	int iKoordinatenStr4[] = { 320,300,680,300 };
-	int iKoordinatenStr5[] = { 320,300,320,420,350,510,500,570,680,570 };
-	int iKoordinatenStr6[] = { 320,300,320,150,200,60,80,90,70,250,170,300,320,300 };
-
-	bInitialisiereGrafik(1200, 800);
-
-	bZeichneStrasse(sStr1hin, sStr1rueck, dLaengeStr1, 2, iKoordinatenStr1);
-	bZeichneStrasse(sStr2hin, sStr2rueck, dLaengeStr2, 6, iKoordinatenStr2);
-	bZeichneStrasse(sStr3hin, sStr3rueck, dLaengeStr3, 2, iKoordinatenStr3);
-	bZeichneStrasse(sStr4hin, sStr4rueck, dLaengeStr4, 2, iKoordinatenStr4);
-	bZeichneStrasse(sStr5hin, sStr5rueck, dLaengeStr5, 5, iKoordinatenStr5);
-	bZeichneStrasse(sStr6hin, sStr6rueck, dLaengeStr6, 7, iKoordinatenStr6);
-
+	bInitialisiereGrafik(1000,800);
+	vSleep(500);
 	bZeichneKreuzung(680, 40);
 	bZeichneKreuzung(680, 300);
 	bZeichneKreuzung(680, 570);
 	bZeichneKreuzung(320, 300);
 
-	auto fahrzeug1i = make_unique<PKW>("PKW1i", 140, 7, 50);
-	auto fahrzeug2i = make_unique<PKW>("PKW2i", 60, 7.4, 30);
+	int koordinaten1[] = {680, 40, 680, 300};
+	int koordinaten2[] = {680, 300,  850, 300, 970, 390, 970, 500, 850, 570, 680, 570};
+	int koordinaten3[] = {680, 300, 680, 570};
+	int koordinaten4[] = {680, 300, 320, 300};
+	int koordinaten5[] = {680, 570, 500, 570, 350, 510, 320, 420, 320, 300};
+	int koordinaten6[] = {320, 300, 170, 300, 70, 250, 80, 90, 200, 60, 320, 150, 320, 300};
 
-	kreuzung1->vAnnahme(move(fahrzeug1i), 1.5);
-	kreuzung2->vAnnahme(move(fahrzeug2i), 1.25);
+	bZeichneStrasse("W12", "W21", 40, 2, koordinaten1);
+	bZeichneStrasse("W23a", "W32a", 40, 6, koordinaten2);
+	bZeichneStrasse("W23b", "W32b", 40, 2, koordinaten3);
+	bZeichneStrasse("W24", "W42", 55, 2, koordinaten4);
+	bZeichneStrasse("W34", "W43", 85, 5, koordinaten5);
+	bZeichneStrasse("W44a", "W44b", 130, 7, koordinaten6);
 
-	auto fahrzeug4i = make_unique<PKW>("PKW4i", 50, 7, 50);
-	auto fahrzeug5i = make_unique<PKW>("PKW5i", 60, 7.4, 30);
-	auto fahrzeug7l = make_unique<Fahrrad>("Fahrrad7l", 60);
+	unique_ptr<Fahrzeug> f1 = make_unique<PKW>("Auto1", 40, 5.5, 250);
+	unique_ptr<Fahrzeug> f2 = make_unique<Fahrrad>("Fahrrad1", 20);
+	Kr1->vAnnahme(move(f1), 0);
+	Kr1->vAnnahme(move(f2), 1);
 
-	kreuzung1->vAnnahme(move(fahrzeug4i), 2);
-	kreuzung2->vAnnahme(move(fahrzeug5i), 2.5);
-	kreuzung1->vAnnahme(move(fahrzeug7l), 0.25);
-
-	for (int i = 0; i < 100; i++)
-	{
-		dGlobaleZeit += 0.125;
-		kreuzung1->vSimulieren();
-		kreuzung2->vSimulieren();
-		kreuzung3->vSimulieren();
-		kreuzung4->vSimulieren();
-		vSleep(500);
+	while(dGlobaleZeit < 10){
+		dGlobaleZeit += 0.1;
+		Kr1->vSimulieren();
+		Kr2->vSimulieren();
+		Kr3->vSimulieren();
+		Kr4->vSimulieren();
 		vSetzeZeit(dGlobaleZeit);
-		cout << "Aktuelle Zeit" << dGlobaleZeit << endl;
-
+		vSleep(100);
 	}
 
-	vBeendeGrafik();
+	int x;
+	cout << "Gebe 1 ein um Fenster zu schließen";
+	cin >> x;
+	if(x==1)
+	{
+		vBeendeGrafik();
+	}
 }
+
 
 
 

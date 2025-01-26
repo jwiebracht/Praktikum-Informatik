@@ -28,6 +28,7 @@ public:
 	void vTanken(Fahrzeug&);
 	std::shared_ptr<Weg> pZufaelligerWeg(Weg&) const;
 	void vAusgeben(std::ostream& out) const override;
+	void zeichneFahrzeuge();
 
 	std::string getName() const;
 	double getTankstelleninhalt() const;

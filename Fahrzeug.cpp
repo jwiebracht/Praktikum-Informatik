@@ -27,16 +27,18 @@ void Fahrzeug::vZeichnen(Weg& weg) const
         throw std::runtime_error("Ungültige Weglänge: Weglänge muss größer als 0 sein.");
     }
 
-    double dRelPosition = p_dAbschnittStrecke / wegLaenge;
+    double dRelPos = p_dAbschnittStrecke / wegLaenge;
     //double dRelPosition = std::max(0.0, std::min(1.0, p_dAbschnittStrecke / weg.getLaenge()));
 
+	if (dRelPos > 1){ dRelPos = 1;}
+	if (dRelPos < 0){ dRelPos = 0;}
 
     // Validierung der berechneten relativen Position
-    if (dRelPosition < 0 || dRelPosition > 1) {
-        throw std::runtime_error("Relative Position ausserhalb [0,1]: " + std::to_string(dRelPosition));
-    }
+//    if (dRelPosition < 0 || dRelPosition > 1) {
+//        throw std::runtime_error("Relative Position ausserhalb [0,1]: " + std::to_string(dRelPosition));
+//    }
 
-    bZeichneFahrrad(p_sName, weg.getName(), dRelPosition, dGeschwindigkeit());
+    bZeichneFahrrad(p_sName, weg.getName(), dRelPos, dGeschwindigkeit());
 }
 
 
